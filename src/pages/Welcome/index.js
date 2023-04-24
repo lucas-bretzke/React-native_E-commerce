@@ -5,8 +5,6 @@ import styles from './styles';
 import * as Animatable from 'react-native-animatable'
 import { useNavigation } from '@react-navigation/native'
 
-import CarroC from '../../components/CarroC'
-
 
 export default function Welcome() {
     const navigation = useNavigation()
@@ -23,8 +21,6 @@ export default function Welcome() {
             <Animatable.View delay={600} animation="fadeInUp" style={styles.containerForm}>
                 <Text style={styles.title}>Monitore, organize seus gastos de qualquer lugar!</Text>
                 <Text style={styles.text}>Faça o login para começar</Text>
-
-                <CarroC nome="Golf" />
 
                 <TouchableOpacity
                     style={styles.button}
