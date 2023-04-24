@@ -13,10 +13,17 @@ export default function Login() {
 
             <Animatable.View animation="fadeInUp" style={styles.containerForm}>
                 <Text style={styles.title}>Email</Text>
-                <TextInput placeholder="E-mail" style={styles.input} />
+                <TextInput
+                    placeholder="fulano@gmail.com"
+                    style={styles.input}
+                    placeholderTextColor={'#ccc'}
+                />
                 <Text style={styles.title}>Senha</Text>
-                <TextInput placeholder="Sua senha" style={styles.input} />
-
+                <TextInput
+                    placeholder="******"
+                    style={styles.input}
+                    placeholderTextColor={'#ccc'}
+                />
                 <TouchableOpacity style={styles.button}>
                     <Text style={styles.buttonText}>Acessar</Text>
                 </TouchableOpacity>
