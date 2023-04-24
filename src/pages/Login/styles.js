@@ -13,7 +13,7 @@ export default StyleSheet.create({
     },
     message: {
         fontSize: 28,
-        fontWight: 'bold',
+        fontWeight: 'bold',
         color: '#fff',
     },
     containerForm: {
