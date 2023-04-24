@@ -29,11 +29,13 @@ export default StyleSheet.create({
         marginTop: 28,
     },
     input: {
+        width: '100%',
         borderBottomWidth: 1,
         height: 40,
         marginBottom: 12,
         fontSize: 16
     },
+
     button: {
         backgroundColor: '#38a69d',
         width: '100%',
