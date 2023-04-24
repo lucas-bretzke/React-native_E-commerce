@@ -9,22 +9,22 @@ export default function Welcome() {
     const navigation = useNavigation()
 
     return (
-        <View style={myStyles.container}>
-            <View style={myStyles.containerLogo}>
+        <View style={styles.container}>
+            <View style={styles.containerLogo}>
                 <Animatable.Image
                     animation="flipInY"
                     source={require('../../img/logo.png')}
                     style={{ width: 200, height: 200 }}
                 />
             </View>
-            <Animatable.View delay={600} animation="fadeInUp" style={myStyles.containerForm}>
-                <Text style={myStyles.title}>Monitore, organize seus gastos de qualquer lugar!</Text>
-                <Text style={myStyles.text}>Faça o login para começar</Text>
+            <Animatable.View delay={600} animation="fadeInUp" style={styles.containerForm}>
+                <Text style={styles.title}>Monitore, organize seus gastos de qualquer lugar!</Text>
+                <Text style={styles.text}>Faça o login para começar</Text>
 
                 <TouchableOpacity
-                    style={myStyles.button}
+                    style={styles.button}
                     onPress={() => navigation.navigate('Login')}>
-                    <Text style={myStyles.buttonText}>Acessar</Text>
+                    <Text style={styles.buttonText}>Acessar</Text>
                 </TouchableOpacity>
 
             </Animatable.View>
@@ -33,7 +33,7 @@ export default function Welcome() {
 }
 
 
-const myStyles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#38a69d'
