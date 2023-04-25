@@ -15,13 +15,13 @@ export default function Shoes(props) {
       </Text>
 
       <View style={{ flexDirection: 'row' }}>
-        {props.discount &&
+        {(props.discount > 0) &&
           <Text style={styles.textShoes} >
             R${' '} {formattedMoney(calculatesTheDiscount(props.price, props.discount))}
           </Text>
         }
 
-        <Text opacity={props.discount && .5}
+        <Text opacity={props.discount > 0 ? 0.5 : 1}
           style={[styles.textShoes, props.discount
             && { textDecorationLine: 'line-through' }]}>
           R${' '} {formattedMoney(props.price)}
@@ -29,7 +29,7 @@ export default function Shoes(props) {
       </View>
 
       <Text style={[styles.textShoes, styles.discount]}>
-        {props.discount && props.discount + '% off'}
+        {(props.discount > 0) && props.discount + '% off'}
       </Text>
     </TouchableOpacity>
   );
