@@ -56,7 +56,7 @@ export default function Login() {
                     onChangeText={handlePasswordChange}
                     onSubmitEditing={handleMsgError}
                     secureTextEntry={passwordVisibility}
-                    onPress={visiblePassword}
+                    onClick={visiblePassword}
                 />
                 <TouchableOpacity
                     onPress={() => { [handlePasswordChange, handleMsgError, navigation.navigate('Home')] }}

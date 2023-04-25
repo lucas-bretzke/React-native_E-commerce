@@ -24,7 +24,7 @@ export default function InputPassword(props) {
                 />
                 <TouchableOpacity
                     style={[styles.eye, { backgroundColor: props.secureTextEntry ? '#00f' : '#444' }]}
-                    onPress={props.onPress}
+                    onPress={props.onClick}
                 >
                     <Text style={{ color: '#fff' }}> {props.secureTextEntry ? "off" : "on"}</Text>
                 </TouchableOpacity>
