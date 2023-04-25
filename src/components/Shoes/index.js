@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
-import { filterDesc } from '../../Helpers/Filters'
+import { filterDesc, formattedMoney, calculatesTheDiscount } from '../../Utils/helpers'
 
 export default function Shoes(props) {
 
@@ -13,24 +13,44 @@ export default function Shoes(props) {
       <Text style={styles.textShoes}>
         {filterDesc(props.children)}
       </Text>
-      <View opacity={0.4}>
-        <Text style={styles.textShoes}> {props.cost} </Text>
+
+      <View style={{ flexDirection: 'row' }}>
+        {props.discount &&
+          <Text style={styles.textShoes} >
+            R${' '} {formattedMoney(calculatesTheDiscount(props.price, props.discount))}
+          </Text>
+        }
+
+        <Text opacity={props.discount && .5}
+          style={[styles.textShoes, props.discount
+            && { textDecorationLine: 'line-through' }]}>
+          R${' '} {formattedMoney(props.price)}
+        </Text>
       </View>
+
+      <Text style={[styles.textShoes, styles.discount]}>
+        {props.discount && props.discount + '% off'}
+      </Text>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: '2%',
+    paddingVertical: '2.5%',
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
   imgShoes: {
     width: 185,
-    height: 175
+    height: 175,
   },
   textShoes: {
-    fontSize: 13,
+    fontSize: 15,
+    marginRight: 10,
+    marginVertical: '1.5%',
+  },
+  discount: {
+    color: 'green'
   }
 });
