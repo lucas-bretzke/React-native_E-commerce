@@ -30,5 +30,9 @@ export default StyleSheet.create({
     line: {
         borderBottomColor: '#D8d8d8',
         borderBottomWidth: 2,
+    },
+    containerShoes: {
+        flexDirection: 'row',
+        justifyContent: 'space-around'
     }
 });
