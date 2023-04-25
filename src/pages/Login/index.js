@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import styles from './styles'
+import { useNavigation } from '@react-navigation/native'
 
 import * as Animatable from 'react-native-animatable'
+
 import InputPassword from '../../components/InputPassword'
 
 export default function Login() {
+    const navigation = useNavigation()
 
 
-    const [email, setName] = useState("")
+    const [email, setName] = useState("lucas@gmail.com")
     const [password, setPassword] = useState("")
     const [passwordVisibility, setPasswordVisibility] = useState(true)
     const [msgError, setMsgError] = useState("")
@@ -16,7 +19,7 @@ export default function Login() {
 
     const handlePasswordChange = (password) => {
         setPassword(password);
-        setIsButtonNext(password.length <= 5 || email.length <= 10)
+        setIsButtonNext(password.length < 6 || email.length <= 10);
     }
     const handleMsgError = () => {
         let msg = "";
@@ -56,7 +59,7 @@ export default function Login() {
                     onPress={visiblePassword}
                 />
                 <TouchableOpacity
-                    onPress={() => { [handlePasswordChange, handleMsgError] }}
+                    onPress={() => { [handlePasswordChange, handleMsgError, navigation.navigate('Home')] }}
                     disabled={isButtonNext}
                     style={[styles.button,
                     (password.length <= 5 || email.length <= 10) && { backgroundColor: '#4444' }
