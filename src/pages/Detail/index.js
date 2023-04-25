@@ -1,16 +1,23 @@
-import React from 'react';
-import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Text, Image, ScrollView, StyleSheet } from 'react-native';
 
 import Dot from '../../components/Dot';
 import SizeButton from '../../components/SizeButton';
 import Button from '../../components/Button';
 import Footer from '../../components/Footer';
 
-export default function Detail({ navigation }) {
+import { formattedMoney, calculatesTheDiscount } from '../../Utils/helpers'
 
-    navigation.setOptions({
-        headerTitle: 'Nike Downshifter 10'
-    })
+export default function Detail({ navigation, route }) {
+
+    const { img, price, discount, productName, description } = route.params;
+
+    useEffect(() => {
+        navigation.setOptions({
+            headerTitle: productName
+        });
+    }, [navigation, productName]);
+
 
     return (
         <ScrollView style={styles.container}>
@@ -21,11 +28,23 @@ export default function Detail({ navigation }) {
             />
 
             <View>
-                <View>
-                    <Text style={[styles.title, { fontSize: 24 }]}>R$ 280,90</Text>
+                <View style={{ flexDirection: 'row' }}>
+                    {(discount > 0) &&
+                        <Text style={[styles.title, {fontWeight: 'bold'}]} >
+                            R${' '} {formattedMoney(calculatesTheDiscount(price, discount))}
+                        </Text>
+                    }
+
+                    <Text opacity={discount > 0 ? 0.5 : 1}
+                        style={[
+                            styles.title,
+                            discount && { textDecorationLine: 'line-through' }]}>
+                        R${' '} {formattedMoney(price)}
+                    </Text>
                 </View>
+
                 <View opacity={0.4}>
-                    <Text style={[styles.title, { fontSize: 30 }]}>Nike Downshifter 10</Text>
+                    <Text style={[styles.title, { fontSize: 30 }]}>{productName}</Text>
                 </View>
 
                 <View style={styles.dotContainer}>
@@ -49,7 +68,7 @@ export default function Detail({ navigation }) {
                         Nike Downshifter 10
                     </Text>
                     <Text style={styles.textContent}>
-                        O Tênis Nike Masculino Downshifter 10 traz amortecimento e suporte atualizados, para garantir uma corrida estável e confortável. Esse tênis de corrida é confeccionado em material respirável, cabedal em couro sintético
+                        {description}
                     </Text>
                     <Text style={styles.textList}>
                         - Categoria: Amortecimento
@@ -63,7 +82,7 @@ export default function Detail({ navigation }) {
 
                 <View style={styles.line} />
 
-                <Footer />
+                {/* <Footer /> */}
 
             </View>
         </ScrollView>
@@ -78,11 +97,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF'
     },
     image: {
-        width: '100%'
+        width: '100%',
+        height: 470
     },
     title: {
-        // fontFamily: 'Anton_400Regular',
-        paddingHorizontal: '2%'
+        paddingHorizontal: '2%',
+        fontSize: 24
     },
     dotContainer: {
         flexDirection: 'row',
