@@ -3,8 +3,9 @@ import { View, Text } from 'react-native';
 import styles  from './styles';
 
 
-export default function Perfil() {
+export default function Profile() {
 
-    <View><Text>Perfil</Text></View>
-
+    return (
+        <View><Text>Profile</Text></View>
+    )
 }

@@ -5,9 +5,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Welcome from '../pages/Welcome'
 import Login from '../pages/Login'
 import Home from '../pages/Home'
-import Detail from '../pages/Detail'
 import Notifications from '../pages/Notifications'
-import Perfil from '../pages/Perfil'
+import Favorites from '../pages/Favorites'
+import Search from '../pages/Search'
+import Profile from '../pages/Profile'
+import Detail from '../pages/Detail'
 
 import { Entypo, Feather } from '@expo/vector-icons'
 
@@ -31,7 +33,7 @@ export default function Routes() {
 function MainTabNavigator() {
     return (
         <Tab.Navigator
-            tabBarOptions={{ activeTintColor: 'white', }}
+            // tabBarOptions={{ activeTintColor: 'white', }}
             screenOptions={{
                 tabBarStyle: {
                     backgroundColor: '#121212',
@@ -40,24 +42,24 @@ function MainTabNavigator() {
                 },
             }}
         >
-            <Tab.Screen name="Home" component={Home}
-                options={{ tabBarLabel: '', headerShown: false, tabBarIcon: ({ size, color }) => (<Entypo name="home" size={23} color={color} />) }}
+            <Tab.Screen name="Inicio" component={Home}
+                options={{ tabBarLabel: '', headerShown: true, tabBarIcon: ({ size, color }) => (<Entypo name="home" size={23} color={color} />) }}
             />
 
-            <Tab.Screen name="Search" component={Home}
-                options={{ tabBarLabel: '', headerShown: false, tabBarIcon: ({ size, color }) => (<Feather name="search" size={23} color={color} />) }}
+            <Tab.Screen name="Search" component={Search}
+                options={{ tabBarLabel: '', headerShown: true, tabBarIcon: ({ size, color }) => (<Feather name="search" size={23} color={color} />) }}
             />
 
-            <Tab.Screen name="Favorites" component={Home}
-                options={{ tabBarLabel: '', headerShown: false, tabBarIcon: ({ size, color }) => (<Feather name="heart" size={23} color={color} />) }}
+            <Tab.Screen name="Favorites" component={Favorites}
+                options={{ tabBarLabel: '', headerShown: true, tabBarIcon: ({ size, color }) => (<Feather name="heart" size={23} color={color} />) }}
             />
 
             <Tab.Screen name="Notifications" component={Notifications}
-                options={{ tabBarLabel: '', headerShown: false, tabBarIcon: ({ size, color }) => (<Feather name="bell" size={23} color={color} />) }}
+                options={{ tabBarLabel: '', headerShown: true, tabBarIcon: ({ size, color }) => (<Feather name="bell" size={23} color={color} />) }}
             />
 
-            <Tab.Screen name="Profile" component={Perfil}
-                options={{ tabBarLabel: '', headerShown: false, tabBarIcon: ({ size, color }) => (<Feather name="user" size={23} color={color} />) }}
+            <Tab.Screen name="Profile" component={Profile}
+                options={{ tabBarLabel: '', headerShown: true, tabBarIcon: ({ size, color }) => (<Feather name="user" size={23} color={color} />) }}
             />
         </Tab.Navigator>
     )
