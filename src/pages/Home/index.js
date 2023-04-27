@@ -4,6 +4,7 @@ import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import styles from './styles'
 
+import * as Animatable from 'react-native-animatable'
 import Shoes from '../../components/Shoes';
 
 export default function Home() {
@@ -60,7 +61,9 @@ export default function Home() {
                 <Text style={styles.title}>LANÇAMENTOS</Text>
 
                 {chunkedProdutos.map((chunk, index) => (
-                    <View key={index} style={styles.containerShoes}>
+                    <Animatable.View
+                        delay={600} animation="fadeInLeft"
+                        key={index} style={styles.containerShoes}>
                         {chunk.map((produto) => (
                             <Shoes
                                 key={produto.id}
@@ -79,7 +82,7 @@ export default function Home() {
                                 {produto.name}
                             </Shoes>
                         ))}
-                    </View>
+                    </Animatable.View>
                 ))}
             </ScrollView>
 
