@@ -30,7 +30,7 @@ export default function Detail({ navigation, route }) {
             <View>
                 <View style={{ flexDirection: 'row' }}>
                     {(discount > 0) &&
-                        <Text style={[styles.title, {fontWeight: 'bold'}]} >
+                        <Text style={[styles.title]} >
                             R${' '} {formattedMoney(calculatesTheDiscount(price, discount))}
                         </Text>
                     }
