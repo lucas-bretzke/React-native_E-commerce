@@ -40,7 +40,7 @@ function MainTabNavigator() {
                 },
             }}
         >
-            <Tab.Screen name="Inicio" component={Home}
+            <Tab.Screen name="Home" component={Home}
                 options={{ tabBarLabel: '', headerShown: false, tabBarIcon: ({ size, color }) => (<Entypo name="home" size={23} color={color} />) }}
             />
 
@@ -48,15 +48,15 @@ function MainTabNavigator() {
                 options={{ tabBarLabel: '', headerShown: false, tabBarIcon: ({ size, color }) => (<Feather name="search" size={23} color={color} />) }}
             />
 
-            <Tab.Screen name="Novo" component={Home}
+            <Tab.Screen name="Favorites" component={Home}
                 options={{ tabBarLabel: '', headerShown: false, tabBarIcon: ({ size, color }) => (<Feather name="heart" size={23} color={color} />) }}
             />
 
-            <Tab.Screen name="Notificacoes" component={Notifications}
+            <Tab.Screen name="Notifications" component={Notifications}
                 options={{ tabBarLabel: '', headerShown: false, tabBarIcon: ({ size, color }) => (<Feather name="bell" size={23} color={color} />) }}
             />
 
-            <Tab.Screen name="Perfil" component={Perfil}
+            <Tab.Screen name="Profile" component={Perfil}
                 options={{ tabBarLabel: '', headerShown: false, tabBarIcon: ({ size, color }) => (<Feather name="user" size={23} color={color} />) }}
             />
         </Tab.Navigator>
