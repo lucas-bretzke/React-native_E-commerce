@@ -1,24 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import styles from './styles'
-
 import * as Animatable from 'react-native-animatable'
 import Shoes from '../../components/Shoes';
+
 
 export default function Home() {
     const navigation = useNavigation();
 
-    const produtos = [
-        { id: '1', name: 'Nike Air Max Dia', price: 14090, discount: 0, img: require('../../assets/1.png'), description: 'O Tênis Nike Masculino Downshifter 10 traz amortecimento e suporte atualizados, para garantir uma corrida estável e confortável. Esse tênis de corrida é confeccionado em material respirável, cabedal em couro sintético' },
-        { id: '2', name: 'Nike Downshifter 10', price: 28090, discount: 10, img: require('../../assets/2.png'), description: 'O Tênis Nike Masculino Downshifter 10 traz amortecimento e suporte atualizados, para garantir uma corrida estável e confortável. Esse tênis de corrida é confeccionado em material respirável, cabedal em couro sintético' },
-        { id: '3', name: 'Nike Squidward Tentacles', price: 56090, discount: 15, img: require('../../assets/3.png'), description: 'O Tênis Nike Masculino Downshifter 10 traz amortecimento e suporte atualizados, para garantir uma corrida estável e confortável. Esse tênis de corrida é confeccionado em material respirável, cabedal em couro sintético' },
-        { id: '4', name: 'Nike Epic React Flyknit 2', price: 22090, discount: 5, img: require('../../assets/4.png'), description: 'O Tênis Nike Masculino Downshifter 10 traz amortecimento e suporte atualizados, para garantir uma corrida estável e confortável. Esse tênis de corrida é confeccionado em material respirável, cabedal em couro sintético' },
-        { id: '5', name: 'Nike Joyride Run Flyknit', price: 12090, discount: 22, img: require('../../assets/5.png'), description: 'O Tênis Nike Masculino Downshifter 10 traz amortecimento e suporte atualizados, para garantir uma corrida estável e confortável. Esse tênis de corrida é confeccionado em material respirável, cabedal em couro sintético' },
-        { id: '6', name: 'Nike Air Max Dia', price: 92090, discount: 0, img: require('../../assets/6.png'), description: 'O Tênis Nike Masculino Downshifter 10 traz amortecimento e suporte atualizados, para garantir uma corrida estável e confortável. Esse tênis de corrida é confeccionado em material respirável, cabedal em couro sintético' },
-    ]
+    const [products, setProdutos] = useState([]);
 
+    useEffect(() => {
+        getShoes();
+    }, []);
+
+    async function getShoes() {
+        try {
+            const response = await fetch('api/shoes/');
+            const data = await response.json();
+            setProdutos(data.shoes);
+        } catch (error) {
+            console.log(error);
+        }
+    }
     const chunk = (arr, size) => {
         return arr.reduce((chunks, el, i) => {
             if (i % size === 0) {
@@ -30,8 +36,8 @@ export default function Home() {
         }, []);
     };
 
-    const chunkedProdutos = chunk(produtos, 2);
 
+    const chunkedProducts = chunk(products, 2);
 
     return (
         <View style={styles.container}>
@@ -60,7 +66,7 @@ export default function Home() {
             <ScrollView>
                 <Text style={styles.title}>LANÇAMENTOS</Text>
 
-                {chunkedProdutos.map((chunk, index) => (
+                {chunkedProducts.map((chunk, index) => (
                     <Animatable.View
                         delay={600} animation="fadeInLeft"
                         key={index} style={styles.containerShoes}>
@@ -73,9 +79,11 @@ export default function Home() {
                                 onClick={() => navigation.navigate('Detail',
                                     {
                                         img: produto.img,
+                                        cart: produto.cart,
                                         price: produto.price,
-                                        discount: produto.discount,
                                         productName: produto.name,
+                                        favorite: produto.favorite,
+                                        discount: produto.discount,
                                         description: produto.description
                                     })}
                             >
