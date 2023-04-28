@@ -43,7 +43,7 @@ function MainTabNavigator() {
             }}
         >
             <Tab.Screen name="Inicio" component={Home}
-                options={{ tabBarLabel: '', headerShown: true, tabBarIcon: ({ size, color }) => (<Entypo name="home" size={23} color={color} />) }}
+                options={{ tabBarLabel: "", headerShown: false, tabBarIcon: ({ size, color }) => (<Entypo name="home" size={23} color={color} />) }}
             />
 
             <Tab.Screen name="Search" component={Search}
