@@ -1,15 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { filterDesc, formattedMoney, calculatesTheDiscount } from '../../Utils/helpers'
+import { Entypo, Feather } from '@expo/vector-icons'
 
 export default function Shoes(props) {
 
+  const [isBtnAddFavorites, setIsBtnAddFavorites] = useState(false);
+
+  function addOrRemoveFromFavorites() {
+    setIsBtnAddFavorites(!isBtnAddFavorites)
+  }
+
   return (
     <TouchableOpacity ableOpacity style={styles.container} onPress={props.onClick}>
-      <Image
-        source={props.img}
-        style={styles.imgShoes}
-      />
+      <View style={{ alignItems: 'flex-end' }}>
+        <TouchableOpacity style={styles.iconHeart} onPress={addOrRemoveFromFavorites}>
+          {isBtnAddFavorites ?
+            <Text>  <Entypo name='heart' size={20} color='#444' /></Text> :
+            <Text> <Feather name='heart' size={20} color='black' /></Text>
+          }
+        </TouchableOpacity>
+        <Image
+          source={props.img}
+          style={styles.imgShoes}
+        />
+      </View>
       <Text style={styles.textShoes}>
         {filterDesc(props.children)}
       </Text>
@@ -40,6 +55,11 @@ const styles = StyleSheet.create({
     paddingVertical: '2.5%',
     alignItems: 'flex-start',
     justifyContent: 'center',
+  },
+  iconHeart: {
+    paddingRight: 10,
+    marginBottom: -15,
+    zIndex: 2,
   },
   imgShoes: {
     width: 185,

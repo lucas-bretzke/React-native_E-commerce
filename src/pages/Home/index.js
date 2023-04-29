@@ -74,7 +74,9 @@ export default function Home() {
                             <Shoes
                                 key={produto.id}
                                 img={produto.img}
+                                cart={produto.cart}
                                 price={produto.price}
+                                favorite={produto.favorite}
                                 discount={produto.discount}
                                 onClick={() => navigation.navigate('Detail',
                                     {
