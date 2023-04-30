@@ -10,7 +10,7 @@ export default StyleSheet.create({
     header: {
         marginBottom: 8
     },
-    image: {
+    imageBanner: {
         width: '100%'
     },
     containerText: {
@@ -22,17 +22,19 @@ export default StyleSheet.create({
         fontSize: 24,
         marginHorizontal: '1%'
     },
+    line: {
+        borderBottomColor: '#D8d8d8',
+        borderBottomWidth: 2,
+    },
     title: {
         fontSize: 20,
         marginVertical: '1%',
         marginHorizontal: '1%'
     },
-    line: {
-        borderBottomColor: '#D8d8d8',
-        borderBottomWidth: 2,
-    },
     containerShoes: {
         flexDirection: 'row',
-        justifyContent: 'space-around'
+        justifyContent: 'space-between',
+        borderBottomWidth:3.5,
+        borderColor: 'white',
     }
 });

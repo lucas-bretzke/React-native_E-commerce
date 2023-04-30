@@ -43,7 +43,7 @@ export default function Home() {
             <View style={styles.header}>
                 <Image
                     source={require('../../assets/banner.png')}
-                    style={styles.image}
+                    style={styles.imageBanner}
                 />
 
                 <View style={styles.containerText}>
@@ -74,6 +74,7 @@ export default function Home() {
                                 key={product.id}
                                 id={product.id}
                                 img={product.img}
+                                // name={product.name}
                                 cart={product.cart}
                                 price={product.price}
                                 favorite={product.favorite}
@@ -83,6 +84,7 @@ export default function Home() {
                                         img: product.img,
                                         cart: product.cart,
                                         price: product.price,
+                                        name: product.name,
                                         favorite: product.favorite,
                                         discount: product.discount,
                                         description: product.description
