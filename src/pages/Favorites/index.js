@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity, ViewBase } from 'react-native';
-import styles from './styles';
+import { View, Text, FlatList, TouchableOpacity, ScrollView } from 'react-native';
 import Shoes from '../../components/Shoes';
-import * as Animatable from 'react-native-animatable'
 import axios from 'axios';
-import { ScrollView } from 'react-native-web';
 
 export default function Favorites() {
     const [favorites, setFavorites] = useState([])
-
-    useEffect(() => {
-        getFavorites();
-    }, []);
 
     async function getFavorites() {
         try {
@@ -23,14 +16,17 @@ export default function Favorites() {
         }
     }
 
+    useEffect(() => {
+        getFavorites();
+    }, []);
+
     return (
         <ScrollView>
-            <Animatable.View
-                delay={600} animation="fadeInLeft">
+            <View>
                 {favorites.length > 0 ?
                     <View>
                         <TouchableOpacity onPress={getFavorites}>
-                            <Text>Reload</Text>
+                            <Text>Reload - {favorites.length}</Text>
                         </TouchableOpacity>
 
                         < FlatList
@@ -38,7 +34,7 @@ export default function Favorites() {
                             keyExtractor={item => item.id}
                             renderItem={({ item }) =>
                                 <Shoes
-                                    // key={item.id}
+                                    id={item.id}
                                     img={item.img}
                                     cart={item.cart}
                                     price={item.price}
@@ -50,10 +46,11 @@ export default function Favorites() {
                             }
                         />
                     </View>
-                    :
-                    <Text style={{ marginHorizontal: 'auto', marginTop: '50%' }}>Nenhum item adicionado aos favotitos!</Text>
+                    : <Text style={{ marginHorizontal: 'auto', marginTop: '50%' }}>
+                        Nenhum item adicionado aos favotitos!
+                    </Text>
                 }
-            </Animatable.View >
+            </View >
         </ScrollView>
     )
 
