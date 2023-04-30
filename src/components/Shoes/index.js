@@ -1,23 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { filterDesc, formattedMoney, calculatesTheDiscount } from '../../Utils/helpers'
 import { Entypo, Feather } from '@expo/vector-icons'
+import axios from 'axios';
 
 export default function Shoes(props) {
+  const [itemProperties, setProduct] = useState({
+    id: props.id,
+    img: props.img,
+    cart: props.cart,
+    price: props.price,
+    favorite: props.favorite,
+    discount: props.discount,
+  });
 
-  const [isBtnAddFavorites, setIsBtnAddFavorites] = useState(false);
-
-  function addOrRemoveFromFavorites() {
-    setIsBtnAddFavorites(!isBtnAddFavorites)
+  async function addOrRemoveFromFavorites() {
+    try {
+      setProduct({ itemProperties, favorite: true })
+      const response = await axios.post('api/favorites/', itemProperties);
+      setProduct(response.data)
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
     <TouchableOpacity ableOpacity style={styles.container} onPress={props.onClick}>
       <View style={{ alignItems: 'flex-end' }}>
         <TouchableOpacity style={styles.iconHeart} onPress={addOrRemoveFromFavorites}>
-          {isBtnAddFavorites ?
-            <Text>  <Entypo name='heart' size={20} color='#444' /></Text> :
-            <Text> <Feather name='heart' size={20} color='black' /></Text>
+          {itemProperties.favorite ?
+            <Text>  <Entypo name='heart' size={21} color='#444' /></Text> :
+            <Text> <Feather name='heart' size={21} color='black' /></Text>
           }
         </TouchableOpacity>
         <Image
@@ -26,7 +39,8 @@ export default function Shoes(props) {
         />
       </View>
       <Text style={styles.textShoes}>
-        {filterDesc(props.children)}
+        {/* {filterDesc(props.children)} */}
+        {props.children}
       </Text>
 
       <View style={{ flexDirection: 'row' }}>
@@ -58,7 +72,7 @@ const styles = StyleSheet.create({
   },
   iconHeart: {
     paddingRight: 10,
-    marginBottom: -15,
+    marginBottom: -12,
     zIndex: 2,
   },
   imgShoes: {
