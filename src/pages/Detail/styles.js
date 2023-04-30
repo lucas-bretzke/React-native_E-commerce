@@ -1,24 +1,43 @@
-import { StyleSheet } from "react-native-web";
+import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
     container: {
         flex: 1,
         width: '100%',
         backgroundColor: '#FFF',
-        zIndex: 1,
+        zIndex: 1
     },
     closeBtn: {
-        position: 'absolute',
+        position: 'fixed',
         top: '5%',
         right: '5%',
+        opacity: .7,
+        zIndex: 2,
     },
     image: {
         width: '100%',
         height: 470
     },
     title: {
-        paddingHorizontal: '2%',
-        fontSize: 24
+        fontWeight: 'bold',
+        fontSize: 30,
+    },
+    price1: {
+        fontSize: 22,
+        padding: '1%',
+        color: 'white',
+        backgroundColor: 'black',
+    },
+    price2: {
+        fontSize: 22,
+        padding: '1%',
+    },
+    discount: {
+        fontSize: 22,
+        marginLeft: '2%',
+        padding: '1%',
+        color: 'white',
+        backgroundColor: '#e21d1d',
     },
     dotContainer: {
         flexDirection: 'row',

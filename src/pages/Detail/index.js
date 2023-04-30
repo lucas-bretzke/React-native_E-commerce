@@ -12,86 +12,91 @@ import { formattedMoney, calculatesTheDiscount } from '../../Utils/helpers'
 
 export default function Detail({ navigation, route }) {
 
-    const { img, price, discount, productName, description } = route.params;
+    const { img, price, discount, name, description } = route.params;
 
     useEffect(() => {
         navigation.setOptions({
-            headerTitle: productName
+            headerTitle: name
         });
-    }, [navigation, productName]);
+    }, [navigation, name]);
 
 
     return (
-        <ScrollView style={styles.container}>
+        <View>
             <TouchableOpacity style={styles.closeBtn} onPress={() => navigation.navigate('Home')}>
-                <Text style={{ fontSize: 25 }}>
+                <Text>
                     <Ionicons name="close-outline" size={35} color="black" />
                 </Text>
             </TouchableOpacity>
-            <Image
-                source={require('../../assets/detail.png')}
-                style={styles.image}
-                resizeMode="cover"
-            />
 
-            <View>
-                <View style={{ flexDirection: 'row' }}>
-                    {(discount > 0) &&
-                        <Text style={[styles.title]} >
-                            R${' '} {formattedMoney(calculatesTheDiscount(price, discount))}
+            <ScrollView style={styles.container}>
+                <Image
+                    source={require('../../assets/detail.png')}
+                    style={styles.image}
+                    resizeMode="cover"
+                />
+
+                <View>
+                    <View >
+                        <Text style={styles.title}>{name}</Text>
+                    </View>
+
+                    <View style={{ flexDirection: 'row', marginTop: 10, }}>
+                        {(discount > 0) &&
+                            <Text style={styles.price1} >
+                                R${' '} {formattedMoney(calculatesTheDiscount(price, discount))}
+                            </Text>
+                        }
+
+                        <Text
+                            style={[styles.price2, discount && { textDecorationLine: 'line-through' }]}>
+                            R${' '} {formattedMoney(price)}
                         </Text>
-                    }
 
-                    <Text opacity={discount > 0 ? 0.5 : 1}
-                        style={[
-                            styles.title,
-                            discount && { textDecorationLine: 'line-through' }]}>
-                        R${' '} {formattedMoney(price)}
-                    </Text>
+                        {(discount > 0) &&
+                            <Text style={[styles.discount, { fontSize: 20 }]} >-{discount}%</Text>
+                        }
+                    </View>
+
+                    <View style={styles.dotContainer}>
+                        <Dot color="#2379f4" />
+                        <Dot color="#fb6e53" />
+                        <Dot color="#ddd" />
+                        <Dot color="#000" />
+                    </View>
+
+                    <View style={{ flexDirection: 'row', width: '100%' }}>
+                        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                            <SizeButton bgColor="#17181a" color="#FFF" >40</SizeButton>
+                            <SizeButton>37</SizeButton>
+                            <SizeButton>39</SizeButton>
+                            <SizeButton>42</SizeButton>
+                        </ScrollView>
+                    </View>
+
+                    <View style={styles.textContent}>
+                        <Text style={styles.textTitle}>
+                            Nike Downshifter 10
+                        </Text>
+                        <Text style={styles.textContent}>
+                            {description}
+                        </Text>
+                        <Text style={styles.textList}>
+                            - Categoria: Amortecimento
+                        </Text>
+                        <Text style={styles.textList}>
+                            - Material: Mesh
+                        </Text>
+                    </View>
+
+                    <Button />
+
+                    <View style={styles.line} />
+
+                    {/* <Footer /> */}
+
                 </View>
-
-                <View opacity={0.4}>
-                    <Text style={[styles.title, { fontSize: 30 }]}>{productName}</Text>
-                </View>
-
-                <View style={styles.dotContainer}>
-                    <Dot color="#2379f4" />
-                    <Dot color="#fb6e53" />
-                    <Dot color="#ddd" />
-                    <Dot color="#000" />
-                </View>
-
-                <View style={{ flexDirection: 'row', width: '100%' }}>
-                    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                        <SizeButton bgColor="#17181a" color="#FFF" >40</SizeButton>
-                        <SizeButton>37</SizeButton>
-                        <SizeButton>39</SizeButton>
-                        <SizeButton>42</SizeButton>
-                    </ScrollView>
-                </View>
-
-                <View style={styles.textContent}>
-                    <Text style={styles.textTitle}>
-                        Nike Downshifter 10
-                    </Text>
-                    <Text style={styles.textContent}>
-                        {description}
-                    </Text>
-                    <Text style={styles.textList}>
-                        - Categoria: Amortecimento
-                    </Text>
-                    <Text style={styles.textList}>
-                        - Material: Mesh
-                    </Text>
-                </View>
-
-                <Button />
-
-                <View style={styles.line} />
-
-                {/* <Footer /> */}
-
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </View>
     );
 }
