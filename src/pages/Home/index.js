@@ -5,7 +5,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import styles from './styles'
 import * as Animatable from 'react-native-animatable'
 import Shoes from '../../components/Shoes';
-
+import axios from 'axios';
 
 export default function Home() {
     const navigation = useNavigation();
@@ -18,9 +18,8 @@ export default function Home() {
 
     async function getShoes() {
         try {
-            const response = await fetch('api/shoes/');
-            const data = await response.json();
-            setProdutos(data.shoes);
+            const response = await axios.get('api/shoes/');
+            setProdutos(response.data.shoes);
         } catch (error) {
             console.log(error);
         }
@@ -70,26 +69,25 @@ export default function Home() {
                     <Animatable.View
                         delay={600} animation="fadeInLeft"
                         key={index} style={styles.containerShoes}>
-                        {chunk.map((produto) => (
+                        {chunk.map((product) => (
                             <Shoes
-                                key={produto.id}
-                                img={produto.img}
-                                cart={produto.cart}
-                                price={produto.price}
-                                favorite={produto.favorite}
-                                discount={produto.discount}
+                                key={product.id}
+                                img={product.img}
+                                cart={product.cart}
+                                price={product.price}
+                                favorite={product.favorite}
+                                discount={product.discount}
                                 onClick={() => navigation.navigate('Detail',
                                     {
-                                        img: produto.img,
-                                        cart: produto.cart,
-                                        price: produto.price,
-                                        productName: produto.name,
-                                        favorite: produto.favorite,
-                                        discount: produto.discount,
-                                        description: produto.description
+                                        img: product.img,
+                                        cart: product.cart,
+                                        price: product.price,
+                                        favorite: product.favorite,
+                                        discount: product.discount,
+                                        description: product.description
                                     })}
                             >
-                                {produto.name}
+                                {product.name}
                             </Shoes>
                         ))}
                     </Animatable.View>
