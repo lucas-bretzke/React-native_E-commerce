@@ -67,7 +67,7 @@ export default function Home() {
 
                 {chunkedProducts.map((chunk, index) => (
                     <Animatable.View
-                        animation="slideInUp" useNativeDriver={true} duration={1000}
+                        animation="slideInUp" duration={1000}
                         key={index} style={styles.containerShoes}>
                         {chunk.map((product) => (
                             <Shoes
