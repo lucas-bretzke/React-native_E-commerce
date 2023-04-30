@@ -10,7 +10,6 @@ export default function Favorites() {
         try {
             const response = await axios.get('api/favorites/');
             setFavorites(response.data.favorites);
-            console.log(response.data)
         } catch (error) {
             console.log(error);
         }
