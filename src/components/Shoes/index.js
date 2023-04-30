@@ -5,20 +5,13 @@ import { Entypo, Feather } from '@expo/vector-icons'
 import axios from 'axios';
 
 export default function Shoes(props) {
-  const [itemProperties, setProduct] = useState({
-    id: props.id,
-    img: props.img,
-    cart: props.cart,
-    price: props.price,
-    favorite: props.favorite,
-    discount: props.discount,
-  });
+  const [itemProperties, setProduct] = useState({ ...props });
 
-  async function addOrRemoveFromFavorites() {
+  async function addToFavorites() {
     try {
-      setProduct({ itemProperties, favorite: true })
-      const response = await axios.post('api/favorites/', itemProperties);
-      setProduct(response.data)
+      const setFavorite = { ...itemProperties, favorite: true };
+      await axios.post('api/favorites/', setFavorite);
+      setProduct(setFavorite);
     } catch (error) {
       console.log(error);
     }
@@ -27,7 +20,7 @@ export default function Shoes(props) {
   return (
     <TouchableOpacity ableOpacity style={styles.container} onPress={props.onClick}>
       <View style={{ alignItems: 'flex-end' }}>
-        <TouchableOpacity style={styles.iconHeart} onPress={addOrRemoveFromFavorites}>
+        <TouchableOpacity style={styles.iconHeart} onPress={addToFavorites}>
           {itemProperties.favorite ?
             <Text>  <Entypo name='heart' size={21} color='#444' /></Text> :
             <Text> <Feather name='heart' size={21} color='black' /></Text>
