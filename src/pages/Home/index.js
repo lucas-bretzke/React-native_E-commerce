@@ -67,11 +67,12 @@ export default function Home() {
 
                 {chunkedProducts.map((chunk, index) => (
                     <Animatable.View
-                        delay={600} animation="fadeInLeft"
+                        animation="slideInUp" useNativeDriver={true} duration={1000}
                         key={index} style={styles.containerShoes}>
                         {chunk.map((product) => (
                             <Shoes
                                 key={product.id}
+                                id={product.id}
                                 img={product.img}
                                 cart={product.cart}
                                 price={product.price}
