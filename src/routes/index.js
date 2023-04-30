@@ -24,7 +24,7 @@ export default function Routes() {
                 <Stack.Screen name="Home" component={MainTabNavigator} options={{ headerShown: false }} />
                 <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
                 <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
-                <Stack.Screen name="Detail" component={Detail} />
+                <Stack.Screen name="Detail" component={Detail} options={{ headerShown: false }} />
             </Stack.Navigator>
         </NavigationContainer>
     )
@@ -43,23 +43,23 @@ function MainTabNavigator() {
             }}
         >
             <Tab.Screen name="Inicio" component={Home}
-                options={{ tabBarLabel: "", headerShown: false, tabBarIcon: ({ size, color }) => (<Entypo name="home" size={23} color={color} />) }}
+                options={{ tabBarLabel: "", headerShown: false, tabBarIcon: ({ color }) => (<Entypo name="home" size={23} color={color} />) }}
             />
 
             <Tab.Screen name="Search" component={Search}
-                options={{ tabBarLabel: '', headerShown: true, tabBarIcon: ({ size, color }) => (<Feather name="search" size={23} color={color} />) }}
+                options={{ tabBarLabel: '', headerShown: true, tabBarIcon: ({ color }) => (<Feather name="search" size={23} color={color} />) }}
             />
 
             <Tab.Screen name="Favorites" component={Favorites}
-                options={{ tabBarLabel: '', headerShown: true, tabBarIcon: ({ size, color }) => (<Feather name="heart" size={23} color={color} />) }}
+                options={{ tabBarLabel: '', headerShown: true, tabBarIcon: ({ size, color }) => (<Feather name="heart" size={size} color={color} />) }}
             />
 
             <Tab.Screen name="Notifications" component={Notifications}
-                options={{ tabBarLabel: '', headerShown: true, tabBarIcon: ({ size, color }) => (<Feather name="bell" size={23} color={color} />) }}
+                options={{ tabBarLabel: '', headerShown: true, tabBarIcon: ({ color }) => (<Feather name="bell" size={23} color={color} />) }}
             />
 
             <Tab.Screen name="Profile" component={Profile}
-                options={{ tabBarLabel: '', headerShown: true, tabBarIcon: ({ size, color }) => (<Feather name="user" size={23} color={color} />) }}
+                options={{ tabBarLabel: '', headerShown: true, tabBarIcon: ({ color }) => (<Feather name="user" size={23} color={color} />) }}
             />
         </Tab.Navigator>
     )
