@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
-import { View, Text, Image, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import styles from './styles'
 
 import Dot from '../../components/Dot';
 import SizeButton from '../../components/SizeButton';
@@ -21,6 +23,11 @@ export default function Detail({ navigation, route }) {
 
     return (
         <ScrollView style={styles.container}>
+            <TouchableOpacity style={styles.closeBtn} onPress={() => navigation.navigate('Home')}>
+                <Text style={{ fontSize: 25 }}>
+                    <Ionicons name="close-outline" size={35} color="black" />
+                </Text>
+            </TouchableOpacity>
             <Image
                 source={require('../../assets/detail.png')}
                 style={styles.image}
@@ -88,43 +95,3 @@ export default function Detail({ navigation, route }) {
         </ScrollView>
     );
 }
-
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        width: '100%',
-        backgroundColor: '#FFF'
-    },
-    image: {
-        width: '100%',
-        height: 470
-    },
-    title: {
-        paddingHorizontal: '2%',
-        fontSize: 24
-    },
-    dotContainer: {
-        flexDirection: 'row',
-        marginVertical: '7%'
-    },
-    textContent: {
-        fontSize: 16,
-        lineHeight: 25,
-        marginVertical: '2%',
-        paddingHorizontal: '2%'
-    },
-    textTitle: {
-        fontSize: 22,
-        marginVertical: '2%'
-    },
-    textList: {
-        fontSize: 16,
-        lineHeight: 25,
-    },
-    line: {
-        borderWidth: 1,
-        borderBottomColor: '#DDD',
-        marginVertical: '2%',
-    }
-});
