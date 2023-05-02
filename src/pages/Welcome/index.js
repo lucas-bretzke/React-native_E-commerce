@@ -15,11 +15,11 @@ export default function Welcome() {
                 <Animatable.Image
                     animation="flipInY"
                     source={require('../../assets/logo.png')}
-                    style={{ width: 200, height: 200 }}
+                    style={{ width: 280, height: 280 }}
                 />
             </View>
             <Animatable.View delay={600} animation="fadeInUp" style={styles.containerForm}>
-                <Text style={styles.title}>Monitore, organize seus gastos de qualquer lugar!</Text>
+                <Text style={styles.title}>Monitore suas compras de qualquer lugar!</Text>
                 <Text style={styles.text}>Faça o login para começar</Text>
 
                 <TouchableOpacity

@@ -8,7 +8,7 @@ const server = makeServer();
 export default function App() {
   return (
     <>
-      <StatusBar backgroundColor="#38a69d" style="light" translucent={true} />
+      <StatusBar backgroundColor="#192436" style="light" translucent={true} />
       <Routes />
     </>
   );

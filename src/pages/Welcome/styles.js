@@ -4,11 +4,11 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#38a69d'
+        backgroundColor: '#192436'
     },
     containerLogo: {
         flex: 2,
-        backgroundColor: '#38a69d',
+        backgroundColor: '#192436',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -31,7 +31,7 @@ export default StyleSheet.create({
     },
     button: {
         position: 'absolute',
-        backgroundColor: '#38a69d',
+        backgroundColor: '#192436',
         borderRadius: 50,
         paddingVertical: 8,
         width: '60%',
