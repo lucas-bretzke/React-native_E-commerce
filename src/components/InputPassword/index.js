@@ -7,6 +7,7 @@ import {
     SafeAreaView,
     StyleSheet
 } from 'react-native';
+import { Feather } from '@expo/vector-icons';
 
 export default function InputPassword(props) {
 
@@ -23,10 +24,13 @@ export default function InputPassword(props) {
                     placeholderTextColor={'#ccc'}
                 />
                 <TouchableOpacity
-                    style={[styles.eye, { backgroundColor: props.secureTextEntry ? '#00f' : '#444' }]}
+                    style={[styles.eye]}
                     onPress={props.onClick}
                 >
-                    <Text style={{ color: '#fff' }}> {props.secureTextEntry ? "off" : "on"}</Text>
+                    {props.secureTextEntry ?
+                        <Feather name="eye" size={24} color="#444444" /> :
+                        <Feather name="eye-off" size={24} color="#444444" />
+                    }
                 </TouchableOpacity>
             </View>
             <Text style={{ color: 'red' }}>{props.msgError}</Text>
