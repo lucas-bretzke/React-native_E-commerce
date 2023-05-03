@@ -10,18 +10,25 @@ import axios from 'axios';
 export default function Home() {
     const navigation = useNavigation();
 
-    const [products, setProdutos] = useState([]);
+    const [products, setProducts] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        getShoes();
-    }, []);
+        const unsubscribe = navigation.addListener('focus', () => {
+            getShoes();
+        }); return unsubscribe;
+    }, [navigation]);
 
     async function getShoes() {
         try {
+            setIsLoading(true)
+            setProducts([])
             const response = await axios.get('api/shoes/');
-            setProdutos(response.data.shoes);
+            setProducts(response.data.shoes);
         } catch (error) {
             console.log(error);
+        } finally {
+            setIsLoading(false)
         }
     }
     const chunk = (arr, size) => {
@@ -61,42 +68,45 @@ export default function Home() {
             </View>
 
             <View style={styles.line} />
-
-            <ScrollView>
-                <Text style={styles.title}>LANÇAMENTOS</Text>
-
-                {chunkedProducts.map((chunk, index) => (
-                    <Animatable.View
-                        animation="slideInUp" duration={1000}
-                        key={index} style={styles.containerShoes}>
-                        {chunk.map((product) => (
-                            <Shoes
-                                key={product.id}
-                                id={product.id}
-                                img={product.img}
-                                // name={product.name}
-                                cart={product.cart}
-                                price={product.price}
-                                favorite={product.favorite}
-                                discount={product.discount}
-                                onClick={() => navigation.navigate('Detail',
-                                    {
-                                        img: product.img,
-                                        cart: product.cart,
-                                        price: product.price,
-                                        name: product.name,
-                                        favorite: product.favorite,
-                                        discount: product.discount,
-                                        description: product.description
-                                    })}
-                            >
-                                {product.name}
-                            </Shoes>
-                        ))}
-                    </Animatable.View>
-                ))}
-            </ScrollView>
-
+            {isLoading && <Text style={styles.loading}> Carregando...</Text>}
+            {!isLoading &&
+                <ScrollView>
+                    <Text style={styles.title}>LANÇAMENTOS</Text>
+                    <TouchableOpacity onPress={getShoes}>
+                        <Text>Reload</Text>
+                    </TouchableOpacity>
+                    {chunkedProducts.map((chunk, index) => (
+                        <Animatable.View
+                            animation="slideInUp" duration={1000}
+                            key={index} style={styles.containerShoes}>
+                            {chunk.map((product) => (
+                                <Shoes
+                                    key={product.id}
+                                    id={product.id}
+                                    img={product.img}
+                                    // name={product.name}
+                                    cart={product.cart}
+                                    price={product.price}
+                                    favorite={product.favorite}
+                                    discount={product.discount}
+                                    onClick={() => navigation.navigate('Detail',
+                                        {
+                                            img: product.img,
+                                            cart: product.cart,
+                                            price: product.price,
+                                            name: product.name,
+                                            favorite: product.favorite,
+                                            discount: product.discount,
+                                            description: product.description
+                                        })}
+                                >
+                                    {product.name}
+                                </Shoes>
+                            ))}
+                        </Animatable.View>
+                    ))}
+                </ScrollView>
+            }
         </View >
     );
 }

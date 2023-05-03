@@ -31,10 +31,17 @@ export default StyleSheet.create({
         marginVertical: '1%',
         marginHorizontal: '1%'
     },
+    loading: {
+        marginVertical: 'auto',
+        marginHorizontal: 'auto',
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#333',
+    },
     containerShoes: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        borderBottomWidth:3.5,
+        borderBottomWidth: 3.5,
         borderColor: 'white',
     }
 });
