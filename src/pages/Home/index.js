@@ -19,6 +19,7 @@ export default function Home() {
         }); return unsubscribe;
     }, [navigation]);
 
+    
     async function getShoes() {
         try {
             setIsLoading(true)
@@ -72,9 +73,6 @@ export default function Home() {
             {!isLoading &&
                 <ScrollView>
                     <Text style={styles.title}>LANÇAMENTOS</Text>
-                    <TouchableOpacity onPress={getShoes}>
-                        <Text>Reload</Text>
-                    </TouchableOpacity>
                     {chunkedProducts.map((chunk, index) => (
                         <Animatable.View
                             animation="slideInUp" duration={1000}
@@ -84,7 +82,6 @@ export default function Home() {
                                     key={product.id}
                                     id={product.id}
                                     img={product.img}
-                                    // name={product.name}
                                     cart={product.cart}
                                     price={product.price}
                                     favorite={product.favorite}
