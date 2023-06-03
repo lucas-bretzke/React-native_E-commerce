@@ -11,10 +11,10 @@ import { Feather } from '@expo/vector-icons';
 
 type PasswordProps = {
     value: string;
-    onChangeText: (text: string) => void;
     msgError: string;
-    onSubmitEditing: () => void;
     secureTextEntry: boolean;
+    onChangeText: (text: string) => void;
+    onSubmitEditing?: () => void;
     onClick: () => void;
 }
 
