@@ -1,10 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StyleSheet, ImageSourcePropType } from 'react-native';
 import { filterDesc, formattedMoney, calculatesTheDiscount } from '../../Utils/helpers'
 import { Entypo, Feather } from '@expo/vector-icons'
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
-export default function Shoes(props) {
+ type ShoesProps = {
+  id: number;
+  name: string;
+  img: ImageSourcePropType;
+  discount: number;
+  price: number;
+  favorite: boolean;
+  onClick: () => void;
+  getFavorites?: () => void;
+};
+
+export default function Shoes(props: ShoesProps) {
   const [itemProperties, setProduct] = useState({ ...props });
 
   async function addOrRemoveFromFavorites() {
@@ -20,7 +31,7 @@ export default function Shoes(props) {
     } else {
       try {
         editProduct(setFavorite);
-        await axios.delete(`api/favorites/${setFavorite.id}`, setFavorite);
+        await axios.delete(`/api/favorites/${setFavorite.id}`);
       } catch (error) {
         console.log('SHOES POST ERROR', error);
       } finally {
@@ -29,17 +40,17 @@ export default function Shoes(props) {
     }
   }
 
-  async function editProduct(item) {
+  async function editProduct(item: any) {
     try {
       setProduct(item);
-      await axios.put(`api/shoes/${item.id}`, item);
+      await axios.put(`/api/shoes/${item.id}`, item);
     } catch (error) {
       console.log('SHOE PUT ERROR', error);
     }
   }
 
   return (
-    <TouchableOpacity ableOpacity style={styles.container} onPress={props.onClick}>
+    <TouchableOpacity activeOpacity={0.8} style={styles.container} onPress={props.onClick}>
       <View style={{ alignItems: 'flex-end' }}>
         <TouchableOpacity style={styles.iconHeart} onPress={addOrRemoveFromFavorites}>
           {itemProperties.favorite ?
@@ -50,7 +61,7 @@ export default function Shoes(props) {
         <Image source={props.img} style={styles.imgShoes} resizeMode="cover" />
       </View>
       <View style={styles.containerDescription}>
-        <Text style={styles.title}>{props.children}  {/* {filterDesc(props.children)} */}</Text>
+        <Text style={styles.title}>{props.name}  {/* {filterDesc(props.name)} */}</Text>
 
         <View style={{ flexDirection: 'row' }}>
           {(props.discount > 0) &&
@@ -76,8 +87,7 @@ export default function Shoes(props) {
 const styles = StyleSheet.create({
   container: {
     width: '49.6%',
-    // paddingHorizontal: '1%',
-    paddingVertical: '2.5%',
+    paddingVertical: '2.5',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#f6f6f6',
