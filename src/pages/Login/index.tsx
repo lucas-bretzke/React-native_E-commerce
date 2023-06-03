@@ -1,27 +1,22 @@
 import React, { useState } from 'react';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import * as Animatable from 'react-native-animatable'
 import { validateTheEmail } from '../../Utils/helpers'
 import styles from './styles'
 
-
 import InputPassword from '../../components/InputPassword'
 
 export default function Login() {
-    const navigation = useNavigation()
+    const navigation = useNavigation<NavigationProp<any>>()
 
+    const [email, setEmail] = useState<string>("")
+    const [password, setPassword] = useState<string>("")
+    const [passwordVisibility, setPasswordVisibility] = useState<boolean>(true)
+    const [msgError, setMsgError] = useState<string>("")
+    const [isButtonNext, setIsButtonNext] = useState<boolean>(true)
 
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [passwordVisibility, setPasswordVisibility] = useState(true)
-    const [msgError, setMsgError] = useState("")
-    const [isButtonNext, setIsButtonNext] = useState(true)
-
-    function singIn() {
-        navigation.navigate('Home')
-        console.log('Login')
-    }
+    function singIn() { navigation.navigate('Home') }
 
     function validateForm() {
         if (validateTheEmail(email) && password.length >= 6) {
