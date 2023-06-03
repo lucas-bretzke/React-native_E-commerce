@@ -17,13 +17,13 @@ export default StyleSheet.create({
         backgroundColor: 'white',
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
-        paddingStart: '5%',
-        paddingEnd: '5%',
+        paddingStart: '4%',
+        paddingEnd: '4%',
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
-        marginTop: 28,
+        marginTop: 22,
         marginBottom: 12,
     },
     text: {
@@ -36,7 +36,7 @@ export default StyleSheet.create({
         paddingVertical: 8,
         width: '60%',
         alignSelf: 'center',
-        bottom: '15%',
+        bottom: '12%',
         alignItems: 'center',
         justifycontent: 'center'
     },

@@ -19,7 +19,7 @@ export default function Welcome() {
                 />
             </View>
             <Animatable.View delay={600} animation="fadeInUp" style={styles.containerForm}>
-                <Text style={styles.title}>Monitore suas compras de qualquer lugar!</Text>
+                <Text style={styles.title}>Descubra as últimas tendências da moda em um único lugar!</Text>
                 <Text style={styles.text}>Faça o login para começar</Text>
 
                 <TouchableOpacity
