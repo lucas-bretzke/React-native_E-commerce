@@ -24,12 +24,12 @@ export default function InputPassword(props) {
                     placeholderTextColor={'#ccc'}
                 />
                 <TouchableOpacity
-                    style={[styles.eye]}
+                    style={[styles.eye, !props.secureTextEntry && {backgroundColor: '#44444444' ,opacity: 0.5 }]}
                     onPress={props.onClick}
                 >
                     {props.secureTextEntry ?
-                        <Feather name="eye" size={24} color="#444444" /> :
-                        <Feather name="eye-off" size={24} color="#444444" />
+                        <Feather name="eye" size={24} /> :
+                        <Feather name="eye-off" size={24} />
                     }
                 </TouchableOpacity>
             </View>
@@ -59,7 +59,8 @@ const styles = StyleSheet.create({
         width: 30,
         height: 30,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        borderRadius: 50
     },
 
 })
