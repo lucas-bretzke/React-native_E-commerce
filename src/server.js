@@ -28,9 +28,9 @@ export function makeServer({ environment = 'development' } = {}) {
             server.create('shoe', {
                 id: 6, favorite: false, cart: false, name: "Nike Air Max Dia", price: 92090, discount: 0, img: require('./assets/6.png'), description: "O Tênis Nike Masculino Downshifter 10 traz amortecimento e suporte atualizados, para garantir uma corrida estável e confortável. Esse tênis de corrida é confeccionado em material respirável, cabedal em couro sintético"
             });
-            server.create('favorite', {
-                id: 7, favorite: true, cart: false, name: "Nike Air Max Dia", price: 92090, discount: 0, img: require('./assets/6.png'), description: "O Tênis Nike Masculino Downshifter 10 traz amortecimento e suporte atualizados, para garantir uma corrida estável e confortável. Esse tênis de corrida é confeccionado em material respirável, cabedal em couro sintético"
-            });
+            // server.create('favorite', {
+            //     id: 7, favorite: true, cart: false, name: "Nike Air Max Dia", price: 92090, discount: 0, img: require('./assets/6.png'), description: "O Tênis Nike Masculino Downshifter 10 traz amortecimento e suporte atualizados, para garantir uma corrida estável e confortável. Esse tênis de corrida é confeccionado em material respirável, cabedal em couro sintético"
+            // });
         },
 
         routes() {
