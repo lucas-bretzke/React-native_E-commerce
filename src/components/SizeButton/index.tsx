@@ -1,7 +1,13 @@
 import React from 'react';
 import { View, StyleSheet, Text} from 'react-native';
 
-export default function SizeButton(props) {
+type ShoesProps = {
+    bgColor: string;
+    color: string;
+    children: string;
+}
+
+export default function SizeButton(props: ShoesProps) {
  return (
    <View style={[styles.container, { backgroundColor: props.bgColor || '#FFF' } ]}>
        <Text style={[styles.text, { color: props.color || '#c9c' } ]}>
