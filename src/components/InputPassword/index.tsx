@@ -9,7 +9,16 @@ import {
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
-export default function InputPassword(props) {
+type PasswordProps = {
+    value: string;
+    onChangeText: (text: string) => void;
+    msgError: string;
+    onSubmitEditing: () => void;
+    secureTextEntry: boolean;
+    onClick: () => void;
+}
+
+export default function InputPassword(props: PasswordProps) {
 
     return (
         <SafeAreaView>
@@ -24,7 +33,7 @@ export default function InputPassword(props) {
                     placeholderTextColor={'#ccc'}
                 />
                 <TouchableOpacity
-                    style={[styles.eye, !props.secureTextEntry && {backgroundColor: '#44444444' ,opacity: 0.5 }]}
+                    style={[styles.eye, !props.secureTextEntry && { backgroundColor: '#44444444', opacity: 0.5 }]}
                     onPress={props.onClick}
                 >
                     {props.secureTextEntry ?
@@ -37,8 +46,6 @@ export default function InputPassword(props) {
         </SafeAreaView>
     )
 }
-
-
 
 const styles = StyleSheet.create({
     containerInputPassword: {
