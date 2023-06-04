@@ -81,10 +81,11 @@ export default function Home({ navigation }: HomeProps) {
               duration={1000}
               key={index}
               style={styles.containerShoes}>
-              {chunk.map((product: ShoeItem) => (
+              {chunk.map((item: ShoeItem) => (
                 <Shoes
-                  item={product}
-                  onClick={() => navigation.navigate('Detail', { produict: product })}
+                  key={item.id}
+                  item={item}
+                  onClick={() => navigation.navigate('Detail', { item: item })}
                 />
               ))}
             </Animatable.View>
