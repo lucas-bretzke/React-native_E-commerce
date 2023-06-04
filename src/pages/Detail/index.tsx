@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image, ScrollView, TouchableOpacity, StyleProp, ImageStyle } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import styles from './styles'
@@ -10,26 +10,20 @@ import Footer from '../../components/Footer';
 
 import { formattedMoney, calculatesTheDiscount } from '../../Utils/helpers'
 
-type DetailProps = {
+type DetailType = {
     navigation: any;
     route: any;
 }
 
-export default function Detail({ navigation, route }: DetailProps) {
+export default function Detail({ navigation, route }: DetailType) {
+    const { img, price, discount, name, description } = route.params.item;
 
-    const { img, price, discount, name, description } = route.params;
+    useEffect(() => { navigation.setOptions({ headerTitle: name }) }, [navigation, name]);
 
-    useEffect(() => {
-        navigation.setOptions({
-            headerTitle: name
-        });
-    }, [navigation, name]);
+    const renderDiscount = () => calculatesTheDiscount(price, discount)
 
-    const renderDiscount = () => {
-        const value = calculatesTheDiscount(price, discount)
-        if (discount > 0)
-            return <Text style={[styles.discountPrice]}>R$ {formattedMoney(value)}</Text>
-    };
+    const [activeDotIndex, setActiveDotIndex] = useState(0);
+    const handleDotPress = (index: number) => setActiveDotIndex(index)
 
     return (
         <View>
@@ -44,20 +38,22 @@ export default function Detail({ navigation, route }: DetailProps) {
                     <Text style={styles.title}>{name}</Text>
 
                     <View style={styles.priceContainer}>
-                        {renderDiscount()}
+                        {discount > 0 &&
+                            <Text style={[styles.discountPrice]}>R$ {formattedMoney(renderDiscount())}</Text>
+                        }
 
                         <Text style={[styles.price, discount && { textDecorationLine: 'line-through' }]}>
-                            R${' '} {formattedMoney(price)}
+                            R$ {formattedMoney(price)}
                         </Text>
 
-                        {(discount > 0) && <Text style={[styles.discount, { fontSize: 20 }]} >-{discount}%</Text>}
+                        {discount > 0 && <Text style={styles.discount}>-{discount}%</Text>}
                     </View>
 
-                    <View style={styles.dotContainer}>
-                        <Dot color="#2379f4" />
-                        <Dot color="#fb6e53" />
-                        <Dot color="#ddd" />
-                        <Dot color="#000" />
+                    <View style={{ flexDirection: 'row' }}>
+                        <Dot color="#2379f4" isActive={activeDotIndex === 0} onPress={() => handleDotPress(0)} />
+                        <Dot color="#fb6e53" isActive={activeDotIndex === 1} onPress={() => handleDotPress(1)} />
+                        <Dot color="#ddd" isActive={activeDotIndex === 2} onPress={() => handleDotPress(2)} />
+                        <Dot color="#000" isActive={activeDotIndex === 3} onPress={() => handleDotPress(3)} />
                     </View>
 
                     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -78,10 +74,10 @@ export default function Detail({ navigation, route }: DetailProps) {
 
                     <View style={styles.line} />
 
-                    <Footer />
+                    <Footer navigation={navigation} />
 
                 </View>
-            </ScrollView>
-        </View>
+            </ScrollView >
+        </View >
     );
 }

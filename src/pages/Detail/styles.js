@@ -39,7 +39,7 @@ export default StyleSheet.create({
         padding: '1%',
     },
     discount: {
-        fontSize: 22,
+        fontSize: 20,
         marginLeft: '2%',
         padding: '1%',
         color: 'white',
