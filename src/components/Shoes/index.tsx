@@ -4,7 +4,7 @@ import { filterDesc, formattedMoney, calculatesTheDiscount } from '../../Utils/h
 import { Entypo, Feather } from '@expo/vector-icons'
 import axios from 'axios';
 
- type ShoesProps = {
+type ShoesProps = {
   id: number;
   name: string;
   img: ImageSourcePropType;
@@ -16,21 +16,21 @@ import axios from 'axios';
 };
 
 export default function Shoes(props: ShoesProps) {
-  const [itemProperties, setProduct] = useState({ ...props });
+  const [itemProperties, setProduct] = useState<ShoesProps>({ ...props });
 
   async function addOrRemoveFromFavorites() {
     const setFavorite = { ...itemProperties, favorite: !itemProperties.favorite };
 
     if (!itemProperties.favorite) {
       try {
-        editProduct(setFavorite);
+        updateProduct(setFavorite);
         await axios.post('/api/favorites', setFavorite);
       } catch (error) {
         console.log('SHOES POST ERROR', error);
       }
     } else {
       try {
-        editProduct(setFavorite);
+        updateProduct(setFavorite);
         await axios.delete(`/api/favorites/${setFavorite.id}`);
       } catch (error) {
         console.log('SHOES POST ERROR', error);
@@ -40,7 +40,7 @@ export default function Shoes(props: ShoesProps) {
     }
   }
 
-  async function editProduct(item: any) {
+  async function updateProduct(item: any) {
     try {
       setProduct(item);
       await axios.put(`/api/shoes/${item.id}`, item);
@@ -54,8 +54,8 @@ export default function Shoes(props: ShoesProps) {
       <View style={{ alignItems: 'flex-end' }}>
         <TouchableOpacity style={styles.iconHeart} onPress={addOrRemoveFromFavorites}>
           {itemProperties.favorite ?
-            <Text>  <Entypo name='heart' size={21} color='#444' /></Text> :
-            <Text> <Feather name='heart' size={21} color='black' /></Text>
+            <Entypo name='heart' size={21} color='#444' /> :
+            <Feather name='heart' size={21} color='black' />
           }
         </TouchableOpacity>
         <Image source={props.img} style={styles.imgShoes} resizeMode="cover" />
@@ -66,13 +66,12 @@ export default function Shoes(props: ShoesProps) {
         <View style={{ flexDirection: 'row' }}>
           {(props.discount > 0) &&
             <Text style={styles.textShoes} >
-              R${' '} {formattedMoney(calculatesTheDiscount(props.price, props.discount))}
+              R$ {formattedMoney(calculatesTheDiscount(props.price, props.discount))}
             </Text>
           }
 
-          <Text style={[styles.textShoes, props.discount > 0
-            && { textDecorationLine: 'line-through', color: '#444444' }]}>
-            R${' '} {formattedMoney(props.price)}
+          <Text style={[styles.textShoes, props.discount > 0 && { textDecorationLine: 'line-through', color: '#444444' }]}>
+            R$ {formattedMoney(props.price)}
           </Text>
         </View>
 
@@ -87,7 +86,7 @@ export default function Shoes(props: ShoesProps) {
 const styles = StyleSheet.create({
   container: {
     width: '49.6%',
-    paddingVertical: '2.5',
+    paddingVertical: 2.5,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#f6f6f6',
