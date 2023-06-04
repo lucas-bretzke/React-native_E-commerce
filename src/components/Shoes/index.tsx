@@ -11,6 +11,7 @@ type ShoesProps = {
   discount: number;
   price: number;
   favorite: boolean;
+  cart: boolean;
   onClick: () => void;
   getFavorites?: () => void;
 };

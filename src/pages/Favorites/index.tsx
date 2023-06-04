@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, FlatList, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, ScrollView, ImageSourcePropType } from 'react-native';
 import Shoes from '../../components/Shoes';
 import axios from 'axios';
 
+type FavoriteItem = {
+    id: number;
+    img: ImageSourcePropType;
+    cart: boolean;
+    price: number;
+    favorite: boolean;
+    discount: number;
+};
+
 export default function Favorites() {
     const navigation = useNavigation();
-    const [favorites, setFavorites] = useState([])
+    const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
 
     async function getFavorites() {
         try {
@@ -20,7 +29,8 @@ export default function Favorites() {
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
             getFavorites();
-        }); return unsubscribe;
+        });
+        return unsubscribe;
     }, [navigation]);
 
     return (
@@ -28,13 +38,12 @@ export default function Favorites() {
             <TouchableOpacity onPress={getFavorites}>
                 <Text>Reload - {favorites.length}</Text>
             </TouchableOpacity>
-            {favorites.length > 0 ?
+            {favorites.length > 0 ? (
                 <View>
-
-                    < FlatList
+                    <FlatList
                         data={favorites}
-                        keyExtractor={item => item.id}
-                        renderItem={({ item }) =>
+                        keyExtractor={(item) => item.id.toString()}
+                        renderItem={({ item }) => (
                             <Shoes
                                 id={item.id}
                                 img={item.img}
@@ -42,18 +51,17 @@ export default function Favorites() {
                                 price={item.price}
                                 favorite={item.favorite}
                                 discount={item.discount}
-                                getFavorites={getFavorites}
-                            >
-                                {item.name}
-                            </Shoes>
-                        }
+                                getFavorites={getFavorites} name={''} onClick={function (): void {
+                                    throw new Error('Function not implemented.');
+                                }} />
+                        )}
                     />
                 </View>
-                : <Text style={{ marginHorizontal: 'auto', marginTop: '50%' }}>
-                    Nenhum item adicionado aos favotitos!
+            ) : (
+                <Text style={{ marginHorizontal: 'auto', marginTop: '50%' }}>
+                    Nenhum item adicionado aos favoritos!
                 </Text>
-            }
+            )}
         </ScrollView>
-    )
-
+    );
 }
