@@ -7,6 +7,12 @@ export default StyleSheet.create({
         backgroundColor: '#FFF',
         zIndex: 1
     },
+
+    contentContainer: {},
+    priceContainer: {
+        flexDirection: 'row',
+        marginTop: 10,
+    },
     closeBtn: {
         position: 'fixed',
         top: '5%',
@@ -22,13 +28,13 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 30,
     },
-    price1: {
+    discountPrice: {
         fontSize: 22,
         padding: '1%',
         color: 'white',
         backgroundColor: 'black',
     },
-    price2: {
+    price: {
         fontSize: 22,
         padding: '1%',
     },
