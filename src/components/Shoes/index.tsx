@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, ImageSourcePropType } from 'react-native';
 import { filterDesc, formattedMoney, calculatesTheDiscount } from '../../Utils/helpers'
 import { Entypo, Feather } from '@expo/vector-icons'
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 
  type ShoesProps = {
   id: number;

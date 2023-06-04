@@ -2,8 +2,8 @@ import React from 'react';
 import { View, StyleSheet, Text} from 'react-native';
 
 type ShoesProps = {
-    bgColor: string;
-    color: string;
+    bgColor?: string;
+    color?: string;
     children: string;
 }
 
