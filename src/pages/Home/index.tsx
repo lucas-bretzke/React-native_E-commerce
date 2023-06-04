@@ -4,18 +4,9 @@ import { MaterialIcons } from '@expo/vector-icons';
 import styles from './styles';
 import * as Animatable from 'react-native-animatable';
 import Shoes from '../../components/Shoes';
+import { ShoeItem } from '../../types'
 import axios from 'axios';
 
-type Shoe = {
-  id: number;
-  img: ImageSourcePropType;
-  cart: boolean;
-  price: number;
-  name: string;
-  favorite: boolean;
-  discount: number;
-  description: string;
-};
 
 type HomeProps = {
   navigation: any;
@@ -23,7 +14,7 @@ type HomeProps = {
 
 export default function Home({ navigation }: HomeProps) {
 
-  const [products, setProducts] = useState<Shoe[]>([]);
+  const [products, setProducts] = useState<ShoeItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -90,27 +81,10 @@ export default function Home({ navigation }: HomeProps) {
               duration={1000}
               key={index}
               style={styles.containerShoes}>
-              {chunk.map((product: Shoe) => (
+              {chunk.map((product: ShoeItem) => (
                 <Shoes
-                  key={product.id}
-                  id={product.id}
-                  img={product.img}
-                  cart={product.cart}
-                  price={product.price}
-                  name={product.name}
-                  favorite={product.favorite}
-                  discount={product.discount}
-                  onClick={() =>
-                    navigation.navigate('Detail', {
-                      img: product.img,
-                      cart: product.cart,
-                      price: product.price,
-                      name: product.name,
-                      favorite: product.favorite,
-                      discount: product.discount,
-                      description: product.description,
-                    })
-                  }
+                  item={product}
+                  onClick={() => navigation.navigate('Detail', { produict: product })}
                 />
               ))}
             </Animatable.View>

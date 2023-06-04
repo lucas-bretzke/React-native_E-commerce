@@ -2,27 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, ImageSourcePropType } from 'react-native';
 import { filterDesc, formattedMoney, calculatesTheDiscount } from '../../Utils/helpers'
 import { Entypo, Feather } from '@expo/vector-icons'
+import { ShoeItem } from '../../types'
 import axios from 'axios';
 
-type ShoesProps = {
-  id: number;
-  name: string;
-  img: ImageSourcePropType;
-  discount: number;
-  price: number;
-  favorite: boolean;
-  cart: boolean;
-  onClick: () => void;
-  getFavorites?: () => void;
-};
 
-export default function Shoes(props: ShoesProps) {
-  const [itemProperties, setProduct] = useState<ShoesProps>({ ...props });
+
+
+export default function Shoes(props: { item: ShoeItem, onClick: () => void }) {
+  const { item } = props;
 
   async function addOrRemoveFromFavorites() {
-    const setFavorite = { ...itemProperties, favorite: !itemProperties.favorite };
+    const setFavorite = { ...item, favorite: !item.favorite };
 
-    if (!itemProperties.favorite) {
+    if (!item.favorite) {
       try {
         updateProduct(setFavorite);
         await axios.post('/api/favorites', setFavorite);
@@ -36,14 +28,13 @@ export default function Shoes(props: ShoesProps) {
       } catch (error) {
         console.log('SHOES POST ERROR', error);
       } finally {
-        typeof props.getFavorites === "function" && props.getFavorites()
+        typeof item.getFavorites === "function" && item.getFavorites()
       }
     }
   }
 
   async function updateProduct(item: any) {
     try {
-      setProduct(item);
       await axios.put(`/api/shoes/${item.id}`, item);
     } catch (error) {
       console.log('SHOE PUT ERROR', error);
@@ -54,30 +45,28 @@ export default function Shoes(props: ShoesProps) {
     <TouchableOpacity activeOpacity={0.8} style={styles.container} onPress={props.onClick}>
       <View style={{ alignItems: 'flex-end' }}>
         <TouchableOpacity style={styles.iconHeart} onPress={addOrRemoveFromFavorites}>
-          {itemProperties.favorite ?
+          {item.favorite ?
             <Entypo name='heart' size={21} color='#444' /> :
             <Feather name='heart' size={21} color='black' />
           }
         </TouchableOpacity>
-        <Image source={props.img} style={styles.imgShoes} resizeMode="cover" />
+        <Image source={item.img} style={styles.imgShoes} resizeMode="cover" />
       </View>
       <View style={styles.containerDescription}>
-        <Text style={styles.title}>{props.name}  {/* {filterDesc(props.name)} */}</Text>
+        <Text style={styles.title}>{item.name}  {/* {filterDesc(item.name)} */}</Text>
 
         <View style={{ flexDirection: 'row' }}>
-          {(props.discount > 0) &&
-            <Text style={styles.textShoes} >
-              R$ {formattedMoney(calculatesTheDiscount(props.price, props.discount))}
-            </Text>
+          {item.discount > 0 &&
+            <Text style={styles.textShoes}>R$ {formattedMoney(calculatesTheDiscount(item.price, item.discount))}</Text>
           }
 
-          <Text style={[styles.textShoes, props.discount > 0 && { textDecorationLine: 'line-through', color: '#444444' }]}>
-            R$ {formattedMoney(props.price)}
+          <Text style={[styles.textShoes, item.discount > 0 && styles.originalPrice]}>
+            R$ {formattedMoney(item.price)}
           </Text>
         </View>
 
         <Text style={[styles.textShoes, styles.discount]}>
-          {(props.discount > 0) && props.discount + '% off'}
+          {item.discount > 0 && item.discount + '% off'}
         </Text>
       </View>
     </TouchableOpacity>
@@ -120,5 +109,10 @@ const styles = StyleSheet.create({
   },
   discount: {
     color: 'green'
+  },
+  originalPrice: {
+    textDecorationLine: 'line-through',
+    color: '#444444'
   }
 });
+
