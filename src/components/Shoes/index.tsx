@@ -6,40 +6,35 @@ import { ShoeItem } from '../../types'
 import axios from 'axios';
 
 
-
-
 export default function Shoes(props: { item: ShoeItem, onClick: () => void }) {
-  const { item } = props;
+  const [item, setItem] = useState<ShoeItem>({ ...props.item });
 
   async function addOrRemoveFromFavorites() {
-    const setFavorite = { ...item, favorite: !item.favorite };
+    const setFavorite = { ...props.item, favorite: !item.favorite }
+    setItem(setFavorite)
 
-    if (!item.favorite) {
-      try {
-        updateProduct(setFavorite);
+    try {
+      updateProduct(setFavorite);
+      if (setFavorite.favorite) {
         await axios.post('/api/favorites', setFavorite);
-      } catch (error) {
-        console.log('SHOES POST ERROR', error);
-      }
-    } else {
-      try {
-        updateProduct(setFavorite);
+      } else {
         await axios.delete(`/api/favorites/${setFavorite.id}`);
-      } catch (error) {
-        console.log('SHOES POST ERROR', error);
-      } finally {
-        typeof item.getFavorites === "function" && item.getFavorites()
       }
+    } catch (error) {
+      console.log('SHOES API ERROR', error);
+    } finally {
+      typeof props.onClick === "function" && props.onClick
     }
   }
 
-  async function updateProduct(item: any) {
+  async function updateProduct(item: ShoeItem) {
     try {
       await axios.put(`/api/shoes/${item.id}`, item);
     } catch (error) {
       console.log('SHOE PUT ERROR', error);
     }
   }
+
 
   return (
     <TouchableOpacity activeOpacity={0.8} style={styles.container} onPress={props.onClick}>
@@ -75,7 +70,9 @@ export default function Shoes(props: { item: ShoeItem, onClick: () => void }) {
 
 const styles = StyleSheet.create({
   container: {
-    width: '49.6%',
+    width: '200px',
+    // minWidth: '49.6%',
+    maxWidth: '186.5px',
     paddingVertical: 2.5,
     alignItems: 'center',
     justifyContent: 'center',
