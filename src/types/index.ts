@@ -1,7 +1,6 @@
 import { ImageSourcePropType } from "react-native";
 
 export type ShoeItem = {
-  description: string;
   id: number;
   name: string;
   img: ImageSourcePropType;
@@ -9,6 +8,6 @@ export type ShoeItem = {
   price: number;
   favorite: boolean;
   cart: boolean;
+  description: string;
   onClick: () => void;
-  getFavorites?: () => void;
 };

@@ -2,20 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, FlatList, TouchableOpacity, ScrollView, ImageSourcePropType } from 'react-native';
 import Shoes from '../../components/Shoes';
+import { ShoeItem } from '../../types/'
 import axios from 'axios';
 
-type FavoriteItem = {
-    id: number;
-    img: ImageSourcePropType;
-    cart: boolean;
-    price: number;
-    favorite: boolean;
-    discount: number;
-};
-
-export default function Favorites() {
-    const navigation = useNavigation();
-    const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
+export default function Favorites({ navigation }: any) {
+    const [favorites, setFavorites] = useState<ShoeItem[]>([]);
 
     async function getFavorites() {
         try {
@@ -27,10 +18,7 @@ export default function Favorites() {
     }
 
     useEffect(() => {
-        const unsubscribe = navigation.addListener('focus', () => {
-            getFavorites();
-        });
-        return unsubscribe;
+        return navigation.addListener('focus', () => { getFavorites() });
     }, [navigation]);
 
     return (
@@ -39,24 +27,12 @@ export default function Favorites() {
                 <Text>Reload - {favorites.length}</Text>
             </TouchableOpacity>
             {favorites.length > 0 ? (
-                <View>
-                    <FlatList
-                        data={favorites}
-                        keyExtractor={(item) => item.id.toString()}
-                        renderItem={({ item }) => (
-                            <Shoes
-                                id={item.id}
-                                img={item.img}
-                                cart={item.cart}
-                                price={item.price}
-                                favorite={item.favorite}
-                                discount={item.discount}
-                                getFavorites={getFavorites} name={''} onClick={function (): void {
-                                    throw new Error('Function not implemented.');
-                                }} />
-                        )}
-                    />
-                </View>
+                <FlatList
+                    data={favorites}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={({ item }) => (
+                        <Shoes item={item} onClick={() => getFavorites()} />)}
+                />
             ) : (
                 <Text style={{ marginHorizontal: 'auto', marginTop: '50%' }}>
                     Nenhum item adicionado aos favoritos!
